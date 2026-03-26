@@ -47,11 +47,10 @@ export const login = async (req, res) => {
     if (!isPasswordValid)
       return res.status(401).json({ message: 'Invalid Credentials' });
 
-    /*** GENERATE COOKE TOKEN AND SEND TO TH USER GENRATE ***/
+    /*** GENERATE COOKE TOKEN AND SEND TO TH USER GENERATE ***/
 
     // res.setHeader("Set-Cookie", "test=" + "myValue").json("succes"); // cookie sans le package cookie-parser
-
-    const age = 1000 * 60 * 60 * 24; // durée de validation cookie (ms * 1s * 1h * 24h)
+    const age = 1000 * 60 * 60 * 24; // durée de validation cookie (ms * 1s * 1h * 24h) -> ici 24h
 
     // un token a 3 parties : 1- Header, 2- Payload(id, exp), 3-signature("dgagege...")
     const my_token = jwt.sign(

@@ -5,13 +5,15 @@ import axios from 'axios';
 
 function RegisterPage() {
   const [error, setError] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
 
   const navigate = useNavigate();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const formData = new FormData(event.target);
+    setIsLoading(true);
 
+    const formData = new FormData(event.target);
     const username = formData.get('username');
     const email = formData.get('email');
     const password = formData.get('password');
@@ -27,6 +29,8 @@ function RegisterPage() {
       // console.log(res.data);
     } catch (error) {
       setError(error.response.data.message);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -50,7 +54,7 @@ function RegisterPage() {
             type="password"
             placeholder="Password"
           />
-          <button>Register</button>
+          <button disabled={isLoading}>Register</button>
           {error && <span>{error}</span>}
           <Link to="/login">Do you have an account?</Link>
         </form>
