@@ -1,0 +1,19 @@
+@mixin sm {
+  // définir une mixin appelée sm
+  @media (max-width: 738px) {
+    // code ne s’appliquera que lorsque la largeur de l’écran est <= 738 pixels
+    @content; // emplacement dynamique : appelles mixin() -> le code à l’intérieur de @include sera inséré à cet endroit.
+  }
+}
+
+@mixin md {
+  @media (max-width: 1024px) {
+    @content;
+  }
+}
+
+@mixin lg {
+  @media (max-width: 1366px) {
+    @content;
+  }
+}

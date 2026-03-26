@@ -1,0 +1,173 @@
+@import '../../responsive.scss';
+
+nav {
+  height: 100px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  a {
+    transition: transform 0.25 ease, opacity 0.25s ease; //transform: effet zoom, opacity: léger fondu
+
+    @include sm {
+      display: none;
+    }
+
+    &:hover {
+      transform: scale(1.05); // agrandit le lient(de 5%)
+      opacity: 0.85; // rend plus transparent
+    }
+  }
+
+  .left {
+    flex: 3; // partage le left en 3/5 et 2/5
+    display: flex;
+    align-items: center;
+    gap: 50px;
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: bold;
+      font-size: 20px;
+
+      img {
+        width: 30px;
+      }
+
+      span {
+        @include md {
+          display: none;
+        }
+
+        @include sm {
+          display: initial;
+        }
+      }
+    }
+  }
+
+  .right {
+    flex: 2;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    background-color: #faf9f7;
+    height: 100%;
+
+    @include md {
+      background-color: transparent;
+    }
+
+    .user {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+
+      .user-name {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+
+        @include sm {
+          .name {
+            display: none;
+          }
+
+          img {
+            margin-right: 10px;
+          }
+        }
+      }
+
+      img {
+        width: 35px;
+        height: 35px;
+        border-radius: 50%;
+      }
+
+      p {
+        font-size: 15px;
+        font-weight: 600;
+      }
+
+      .profile {
+        position: relative;
+        padding: 10px 15px;
+        background-color: #f7c843;
+        border-radius: 20px;
+
+        .notification {
+          position: absolute;
+          font-size: 12px;
+          top: -4px;
+          right: -3px;
+          color: white;
+          padding: 3px 6px;
+          background-color: red;
+          border-radius: 50%;
+        }
+      }
+    }
+
+    a {
+      margin: 20px;
+    }
+
+    .register {
+      background-color: transparent;
+      border: 2px solid #f7c843;
+      color: #f7c843;
+      padding: 10px 22px;
+      border-radius: 20px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+    .register:hover {
+      background-color: #f7c843;
+      color: #1e1e1e;
+    }
+
+    .menuIcon {
+      display: none;
+
+      img {
+        width: 35px;
+        height: 35px;
+      }
+
+      @include sm {
+        display: inline;
+        z-index: 100;
+      }
+    }
+
+    .menu {
+      position: absolute;
+      top: 0;
+      right: -50%; // rend le menu en dehors de l'écran (l'invisibilise)
+      background-color: black;
+      color: #faf9f7;
+      height: 100vh;
+      width: 50%;
+      transition: all 1s ease;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      font-size: 25px;
+
+      &.active {
+        right: 0;
+      }
+
+      @include sm {
+        a {
+          display: initial;
+        }
+      }
+    }
+  }
+}

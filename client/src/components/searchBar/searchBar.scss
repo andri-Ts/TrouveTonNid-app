@@ -1,0 +1,181 @@
+// /* Container de la search bar */
+// .searchBar {
+//   max-width: 900px;
+//   margin: 40px auto;
+//   padding: 20px 25px;
+//   background-color: #ffffff;
+//   border-radius: 12px;
+//   box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+//   display: flex;
+//   flex-direction: column;
+//   gap: 20px;
+//   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+// }
+
+// /* Boutons Buy / Rent */
+// .searchBar .type {
+//   display: flex;
+//   gap: 15px;
+// }
+
+// .searchBar .type button {
+//   flex: 1;
+//   padding: 10px 0;
+//   border: none;
+//   border-radius: 8px;
+//   background-color: #f0f0f0;
+//   color: #333;
+//   font-weight: 600;
+//   cursor: pointer;
+//   transition: all 0.3s ease;
+// }
+
+// .searchBar .type button:hover,
+// .searchBar .type button.active {
+//   background-color: #007bff;
+//   color: #fff;
+// }
+
+// /* Formulaire */
+// .searchBar form {
+//   display: flex;
+//   gap: 15px;
+//   flex-wrap: wrap;
+// }
+
+// /* Inputs */
+// .searchBar input[type='text'],
+// .searchBar input[type='number'] {
+//   flex: 1 1 150px;
+//   padding: 12px 15px;
+//   border: 1px solid #ddd;
+//   border-radius: 8px;
+//   font-size: 14px;
+//   transition: border-color 0.3s ease, box-shadow 0.3s ease;
+// }
+
+// .searchBar input[type='text']:focus,
+// .searchBar input[type='number']:focus {
+//   border-color: #007bff;
+//   box-shadow: 0 0 5px rgba(0, 123, 255, 0.3);
+//   outline: none;
+// }
+
+// /* Bouton recherche */
+// .searchBar form button {
+//   background-color: #007bff;
+//   border: none;
+//   padding: 12px 18px;
+//   border-radius: 8px;
+//   cursor: pointer;
+//   transition: background-color 0.3s ease;
+// }
+
+// .searchBar form button:hover {
+//   background-color: #0056b3;
+// }
+
+// /* Image du bouton */
+// .searchBar form button img {
+//   width: 20px;
+//   height: 20px;
+// }
+
+// /* Responsive */
+// @media (max-width: 600px) {
+//   .searchBar form {
+//     flex-direction: column;
+//   }
+
+//   .searchBar .type {
+//     flex-direction: column;
+//   }
+
+//   .searchBar .type button {
+//     width: 100%;
+//   }
+// }
+
+@import '../../responsive.scss';
+
+.searchBar {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+  .type {
+    display: flex;
+    gap: 5px;
+
+    button {
+      padding: 10px 20px;
+      border: none;
+      border-radius: 10px;
+      background-color: #f0f0f0;
+
+      &.active {
+        background-color: black;
+        color: white;
+      }
+    }
+  }
+
+  form {
+    border: 1px solid #999;
+    padding: 5px 10px;
+    border-radius: 10px;
+    display: flex;
+    justify-content: space-between;
+
+    @include sm {
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    input {
+      border: none;
+      border-radius: 5px;
+      width: 150px;
+      padding: 3px 5px;
+      outline: none; // enlève le bordure des input
+      transition: background-color 0.2s, border-color 0.2s;
+
+      &:focus {
+        background-color: #f0f0f0;
+        border-color: transparent; /* enlève la bordure noire */
+        color: #333;
+      }
+
+      @include lg {
+        padding: 0 5px;
+      }
+
+      @include sm {
+        width: auto;
+        border-bottom: 1px solid;
+        padding: 15px 0;
+        border-radius: 0;
+
+        /* ❗️Ici, on écrase totalement le focus */
+        &:focus {
+          background-color: transparent; // ou la couleur de fond normale
+          border-color: inherit; // garde la bordure d'origine
+          color: inherit; // garde la couleur normale
+          outline: none; // pas de contour
+        }
+      }
+    }
+
+    button {
+      background-color: #007bff;
+      padding: 5px 7px;
+      border: none;
+      border-radius: 8px;
+
+      img {
+        width: 25px;
+        height: 25;
+      }
+    }
+  }
+}

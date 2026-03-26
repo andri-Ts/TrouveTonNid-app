@@ -1,0 +1,68 @@
+@import '../../responsive.scss';
+
+.homePage {
+  display: flex;
+  height: 100%;
+
+  .textContainer {
+    flex: 3;
+
+    .wrapper {
+      padding: 80px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 50px;
+      height: 100%; //permet d'occuper tout l'écran
+      //   background-color: aqua;
+      // background-color: blue;
+
+      @include md {
+        padding: 0;
+      }
+
+      @include sm {
+        justify-content: flex-start;
+      }
+
+      h1 {
+        font-size: 64px;
+
+        @include lg {
+          font-size: 45px;
+        }
+      }
+
+      .boxes {
+        display: flex;
+        justify-content: space-between;
+
+        @include sm {
+          display: none;
+        }
+      }
+    }
+  }
+
+  .imgContainer {
+    flex: 2;
+    background-color: #faf9f7;
+    position: relative;
+    display: flex;
+    align-items: center;
+
+    @include md {
+      display: none;
+    }
+
+    img {
+      width: 115%; // permet de faire sortir un peu de son container
+      position: absolute;
+      right: 0; // permet de décaler l'image du container
+
+      @include lg {
+        width: 100%;
+      }
+    }
+  }
+}

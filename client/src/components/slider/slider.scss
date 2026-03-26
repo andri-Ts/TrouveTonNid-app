@@ -1,0 +1,94 @@
+@import '../../responsive.scss';
+
+.slider {
+  display: flex;
+  width: 100%;
+  height: 300px;
+  gap: 20px;
+
+  .fullSlider {
+    position: absolute; /* L'élément est retiré du flux normal et peut être placé librement */
+    width: 100vw; /* Largeur = 100% de la largeur de la fenêtre (viewport) */
+    height: 100vh; /* Hauteur = 100% de la hauteur de la fenêtre (viewport) */
+    top: 0;
+    right: 0;
+    background-color: black;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    z-index: 999;
+
+    .arrow {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+
+      img {
+        width: 50px;
+
+        @include sm {
+          width: 20px;
+        }
+
+        &.right {
+          transform: rotate(180deg);
+        }
+      }
+    }
+
+    .imgContainer {
+      flex: 10;
+
+      img {
+        width: 100%;
+        height: 100%;
+      }
+    }
+
+    .close {
+      color: white;
+      position: absolute;
+      top: 0;
+      right: 0;
+      font-size: 30px;
+      font-weight: bold;
+      padding: 50px;
+      cursor: pointer;
+    }
+  }
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 10px;
+    cursor: pointer;
+    // transition: all 0.04s ease;
+
+    // &:hover {
+    //   opacity: 0.9; // Rend l’image légèrement transparente pour indiquer l’état hover
+    //   transform: scale(
+    //     1.02
+    //   ); // Agrandit très légèrement l’image pour donner un feedback visuel
+    // }
+  }
+
+  .bigImage {
+    flex: 3;
+  }
+
+  .smallImages {
+    flex: 1;
+    display: grid;
+    grid-template-rows: repeat(auto-fit, minmax(0, 1fr));
+    // auto-fit : adapte le nombre de lignes au nombre d’images
+    // 1fr      : chaque image prend une part égale de la hauteur
+    // minmax(0, 1fr) : empêche les débordements en autorisant la compression
+    gap: 10px;
+
+    img {
+      width: 100%;
+      height: 100%;
+    }
+  }
+}
