@@ -1,6 +1,7 @@
 .md
 node_modules
-.env
+git-workflow.env
+Stps.md
 .vscode
 dist
 buld
