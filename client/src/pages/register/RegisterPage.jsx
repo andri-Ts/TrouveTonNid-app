@@ -35,9 +35,21 @@ function RegisterPage() {
       <div className="formContainer">
         <form onSubmit={handleSubmit}>
           <h1>Create an Account</h1>
-          <input name="username" type="text" placeholder="Username" />
-          <input name="email" type="text" placeholder="Email" />
-          <input name="password" type="password" placeholder="Password" />
+          <input
+            name="username"
+            required
+            minLength={3}
+            maxLength={20}
+            type="text"
+            placeholder="Username"
+          />
+          <input name="email" required type="email" placeholder="Email" />
+          <input
+            name="password"
+            required
+            type="password"
+            placeholder="Password"
+          />
           <button>Register</button>
           {error && <span>{error}</span>}
           <Link to="/login">Do you have an account?</Link>
