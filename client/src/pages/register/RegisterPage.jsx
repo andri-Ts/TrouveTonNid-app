@@ -23,8 +23,8 @@ function RegisterPage() {
         password,
       }); // post(url, data)
 
-      // navigate('/login');
-      console.log(res.data);
+      navigate('/login');
+      // console.log(res.data);
     } catch (error) {
       setError(error.response.data.message);
     }
