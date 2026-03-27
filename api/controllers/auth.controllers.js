@@ -61,6 +61,9 @@ export const login = async (req, res) => {
       { expiresIn: age }, // exp
     );
 
+    const userObj = user.toObject(); // (!IMPORTANT) convertir le doc Moongose en objet JS simple <= user contient des encore des trucs internes($_, _doc, ...)
+    const { password: userPassword, ...userInfo } = userObj; // pour isoler le password et ne pas l'envoyer au client
+
     res
       .cookie('token', my_token, {
         httpOnly: true, // Empêche l'accès au cookie côté JavaScript (document.cookie)
@@ -69,7 +72,7 @@ export const login = async (req, res) => {
         maxAge: age, // Durée de vie du cookie en millisecondes: iat(moment de la création du token) + durée
       })
       .status(200)
-      .json({ message: 'Login successful' });
+      .json({ ...userInfo, message: 'Login successful' }); // OU JUSTE .json(userInfo)
   } catch (error) {
     res.status(500).json({ message: 'Failed to login' });
   }

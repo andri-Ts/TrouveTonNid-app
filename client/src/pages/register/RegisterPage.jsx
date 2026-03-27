@@ -6,7 +6,6 @@ import axios from 'axios';
 function RegisterPage() {
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-
   const navigate = useNavigate();
 
   const handleSubmit = async (event) => {
