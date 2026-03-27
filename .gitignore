@@ -1,7 +1,5 @@
-.md
+*.md
 node_modules
-git-workflow.env
-Stps.md
 .vscode
 dist
 buld
