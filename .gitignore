@@ -2,6 +2,7 @@
 node_modules
 git-workflow.env
 Stps.md
+git-workflow-equipe.md
 .vscode
 dist
 buld
