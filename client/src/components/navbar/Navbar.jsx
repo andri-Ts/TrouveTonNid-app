@@ -11,7 +11,7 @@ function Navbar() {
       <section className="left">
         <a href="/" className="logo">
           <img src="./logo.png" alt="LOGO" />
-          <span>LamaEstate</span>
+          <span>Trouve Ton Nid</span>
         </a>
         <a href="/">Home</a>
         <a href="/about">About</a>
@@ -25,7 +25,7 @@ function Navbar() {
               <img src="/profile.jpg" alt="profile" />
               <p className="name">John Doe</p>
             </div>
-            <Link to={'/profile'} className="profile">
+            <Link to={'/profile-page'} className="profile">
               <p>Profile</p>
               <span className="notification">3</span>
             </Link>
