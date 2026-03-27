@@ -1,11 +1,12 @@
 import { useState } from 'react';
 import apiRequest from '../../lib/apiRequest';
 import './login.scss';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 function Login() {
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false); // pour activé ou désactivé le bouton Login
+  const navigate = useNavigate();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -18,7 +19,9 @@ function Login() {
 
     try {
       const res = await apiRequest.post('/auth/login', { username, password });
-      console.log(res.data); // .data: contient la réponse du backend)
+      // console.log(res.data); // .data: contient la réponse du backend)
+      localStorage.setItem('user', JSON.stringify(res.data)); // transforme la réponse du back en string et le stock dans le navigateur
+      navigate('/');
     } catch (error) {
       setError(error.response.data.message);
     } finally {

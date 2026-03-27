@@ -61,8 +61,8 @@ export const login = async (req, res) => {
       { expiresIn: age }, // exp
     );
 
-    // pour isoler le password et ne pas l'envoyer au client
-    const { password: userPassword, ...userInfo } = user;
+    const userObj = user.toObject(); // (!IMPORTANT) convertir le doc Moongose en objet JS simple <= user contient des encore des trucs internes($_, _doc, ...)
+    const { password: userPassword, ...userInfo } = userObj; // pour isoler le password et ne pas l'envoyer au client
 
     res
       .cookie('token', my_token, {
