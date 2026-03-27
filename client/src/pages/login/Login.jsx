@@ -18,7 +18,7 @@ function Login() {
 
     try {
       const res = await apiRequest.post('/auth/login', { username, password });
-      console.log(res);
+      console.log(res.data); // .data: contient la réponse du backend)
     } catch (error) {
       setError(error.response.data.message);
     } finally {
