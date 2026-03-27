@@ -11,7 +11,10 @@ function ProfilePage() {
           <article className="my-infos">
             <header>
               <h2>User Information</h2>
-              <button>Update profil</button>
+              <div className="buttons">
+                <button>Update profil</button>
+                <button className="logout">Logout</button>
+              </div>
             </header>
             <div className="infos">
               <div className="info">
