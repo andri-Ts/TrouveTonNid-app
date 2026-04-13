@@ -2,8 +2,22 @@ import React from 'react';
 import List from '../../components/list/List';
 import './profilePage.scss';
 import Chat from '../../components/chat/Chat';
+import { useNavigate } from 'react-router-dom';
+import apiRequest from '../../lib/apiRequest';
 
 function ProfilePage() {
+  const navigate = useNavigate();
+
+  const handleLogout = async () => {
+    try {
+      await apiRequest.post('/auth/logout');
+      localStorage.removeItem('user'); // supprime les données (token) de l'user dans le localStorage
+      navigate('/');
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <div className="profilePage">
       <section className="details">
@@ -11,7 +25,12 @@ function ProfilePage() {
           <article className="my-infos">
             <header>
               <h2>User Information</h2>
-              <button>Update profil</button>
+              <div className="buttons">
+                <button>Update profil</button>
+                <button className="logout" onClick={handleLogout}>
+                  Logout
+                </button>
+              </div>
             </header>
             <div className="infos">
               <div className="info">
