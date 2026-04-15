@@ -1,7 +1,7 @@
 import jwt from 'jsonwebtoken';
 
 export const shbeLoggedIn = (req, res) => {
-  // 1.Verification token faite pas le middlware
+  // 1.Verification token faite pas le middleware
   // 2. Récupération de l'id (utilise)
   console.log(req.userId);
 
@@ -15,6 +15,7 @@ export const shbeAdmin = (req, res) => {
   if (!token) return res.status(401).json({ message: 'Not Authentificated' });
 
   jwt.verify(token, process.env.JWT_SECRET_KEY, async (err, payload) => {
+    // async () {}: callback asynchrone exécuté après la vérification du token
     if (err) return res.status(403).json({ message: 'Token is not Valid' });
 
     //si on n'est pas admin

@@ -1,12 +1,15 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import apiRequest from '../../lib/apiRequest';
 import './login.scss';
 import { Link, useNavigate } from 'react-router-dom';
+import { AuthContext } from '../../context/AuthContext';
 
 function Login() {
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false); // pour activé ou désactivé le bouton Login
   const navigate = useNavigate();
+
+  const { updateUser } = useContext(AuthContext); // récup de la fonciton updateUser (pour avoir les data) via le Provider
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -19,9 +22,9 @@ function Login() {
 
     try {
       const res = await apiRequest.post('/auth/login', { username, password });
-      // console.log(res.data); // .data: contient la réponse du backend)
-      localStorage.setItem('user', JSON.stringify(res.data)); // transforme la réponse du back en string et le stock dans le navigateur
-      navigate('/');
+      // localStorage.setItem('user', JSON.stringify(res.data)); // transforme la réponse du back en string et le stock dans le navigateur
+      updateUser(res.data); // les données sont dans .data
+      navigate('/profile-page');
     } catch (error) {
       setError(error.response.data.message);
     } finally {
