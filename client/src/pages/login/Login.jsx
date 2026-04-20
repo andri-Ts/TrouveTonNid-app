@@ -20,11 +20,12 @@ function Login() {
     const username = formData.get('username-form');
     const password = formData.get('password-form');
 
+    // Récupérer les données de l'user (avec le Context)
     try {
       const res = await apiRequest.post('/auth/login', { username, password });
       // localStorage.setItem('user', JSON.stringify(res.data)); // transforme la réponse du back en string et le stock dans le navigateur
       updateUser(res.data); // les données sont dans .data
-      navigate('/profile-page');
+      navigate('/');
     } catch (error) {
       setError(error.response.data.message);
     } finally {
