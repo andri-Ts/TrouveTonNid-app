@@ -37,6 +37,7 @@ function App() {
         },
       ],
     },
+    // Route protéger, pas accessible sans authentification (via login)
     {
       path: '/',
       element: <RequireAuthLayout />,
