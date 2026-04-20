@@ -26,7 +26,6 @@ function Navbar() {
             <div className="user-name">
               <img src={currentUser.avatar || '/no-avatar.jpg'} alt="profile" />
               <p className="name">{currentUser.username}</p>
-              {/* <p className="name">MY NAME</p> */}
             </div>
             <Link to={'/profile-page'} className="profile">
               <p>Profile</p>
@@ -36,7 +35,7 @@ function Navbar() {
         ) : (
           <>
             <Link to="/login">Sign in</Link>
-            <Link href="/register" className="register">
+            <Link to="/register" className="register">
               Sign up
             </Link>
           </>

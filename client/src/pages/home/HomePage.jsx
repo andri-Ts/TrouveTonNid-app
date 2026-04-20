@@ -4,9 +4,6 @@ import SearchBar from '../../components/searchBar/SearchBar';
 import { AuthContext } from '../../context/AuthContext';
 
 function HomePage() {
-  // const { currentUser } = useContext(AuthContext);
-  // console.log(currentUser);
-
   return (
     <section className="homePage">
       <div className="textContainer">
