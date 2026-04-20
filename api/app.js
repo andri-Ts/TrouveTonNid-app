@@ -4,6 +4,7 @@ import authRouter from './routes/auth.routes.js';
 import connectToDatabase from './database/db.js';
 import cookieParser from 'cookie-parser';
 import cors from 'cors';
+import testRouter from './routes/test.routes.js';
 
 dotenv.config(); // !important pour le db
 const app = express(); // init the server
@@ -18,6 +19,7 @@ app.use(express.json()); // permet à l'app de communiquer en json
 app.use(cookieParser()); // lire (parser) les cookies entrant facilement
 
 app.use('/api/auth', authRouter); // Pour auth et login
+app.use('/api/test', testRouter); // Api test
 
 const PORT = process.env.PORT || 8800;
 

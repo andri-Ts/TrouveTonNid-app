@@ -7,7 +7,9 @@ nav {
   align-items: center;
 
   a {
-    transition: transform 0.25 ease, opacity 0.25s ease; //transform: effet zoom, opacity: léger fondu
+    transition:
+      transform 0.25 ease,
+      opacity 0.25s ease; //transform: effet zoom, opacity: léger fondu
 
     @include sm {
       display: none;
@@ -132,6 +134,7 @@ nav {
 
     .menuIcon {
       display: none;
+      z-index: 20;
 
       img {
         width: 35px;
@@ -158,6 +161,7 @@ nav {
       justify-content: center;
       align-items: center;
       font-size: 25px;
+      z-index: 10; //
 
       &.active {
         right: 0;

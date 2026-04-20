@@ -1,9 +1,27 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import List from '../../components/list/List';
 import './profilePage.scss';
 import Chat from '../../components/chat/Chat';
+import { Link, useNavigate } from 'react-router-dom';
+import apiRequest from '../../lib/apiRequest';
+import { AuthContext } from '../../context/AuthContext';
 
 function ProfilePage() {
+  const navigate = useNavigate();
+
+  const { updateUser, currentUser } = useContext(AuthContext);
+
+  const handleLogout = async () => {
+    try {
+      await apiRequest.post('/auth/logout');
+      // localStorage.removeItem('user'); // supprime les données (token) de l'user dans le localStorage
+      updateUser(null); // remplace le localStorage.remove
+      navigate('/');
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <div className="profilePage">
       <section className="details">
@@ -11,20 +29,27 @@ function ProfilePage() {
           <article className="my-infos">
             <header>
               <h2>User Information</h2>
-              <button>Update profil</button>
+              <div className="buttons">
+                <Link to="/profile/update">
+                  <button>Update profil</button>
+                </Link>
+                <button className="logout" onClick={handleLogout}>
+                  Logout
+                </button>
+              </div>
             </header>
             <div className="infos">
               <div className="info">
                 <p>Avatar: </p>
-                <img src="/profile.jpg" alt="pdp" />
+                <img src={currentUser.avatar || '/no-avatar.jpg'} alt="pdp" />
               </div>
               <div className="info">
                 <p>Username: </p>
-                <p>John Doe</p>
+                <p>{currentUser.username}</p>
               </div>
               <div className="info">
                 <p>Email: </p>
-                <p>john@gmail.com</p>
+                <p>{currentUser.email}</p>
               </div>
             </div>
           </article>

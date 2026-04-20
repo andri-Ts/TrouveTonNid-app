@@ -1,17 +1,19 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import './navbar.scss';
 import { Link } from 'react-router-dom';
+import { AuthContext } from '../../context/AuthContext';
 
 function Navbar() {
   const [open, setOpen] = useState(false);
-  const user = true;
+
+  const { currentUser } = useContext(AuthContext);
 
   return (
     <nav>
       <section className="left">
         <a href="/" className="logo">
           <img src="./logo.png" alt="LOGO" />
-          <span>LamaEstate</span>
+          <span>Trouve Ton Nid</span>
         </a>
         <a href="/">Home</a>
         <a href="/about">About</a>
@@ -19,25 +21,26 @@ function Navbar() {
         <a href="/agents">Agents</a>
       </section>
       <section className="right">
-        {user ? (
+        {currentUser ? (
           <section className="user">
             <div className="user-name">
-              <img src="/profile.jpg" alt="profile" />
-              <p className="name">John Doe</p>
+              <img src={currentUser.avatar || '/no-avatar.jpg'} alt="profile" />
+              <p className="name">{currentUser.username}</p>
             </div>
-            <Link to={'/profile'} className="profile">
+            <Link to={'/profile-page'} className="profile">
               <p>Profile</p>
               <span className="notification">3</span>
             </Link>
           </section>
         ) : (
           <>
-            <a href="/sign-in">Sign in</a>
-            <a href="/sign-up" className="register">
+            <Link to="/login">Sign in</Link>
+            <Link to="/register" className="register">
               Sign up
-            </a>
+            </Link>
           </>
         )}
+        {/* menu sur mobile */}
         <div className="menuIcon">
           <img
             src="/menu.png"
@@ -50,10 +53,10 @@ function Navbar() {
           <a href="/about">About</a>
           <a href="/contact">Contact</a>
           <a href="/agents">Agents</a>
-          <a href="/sign-in">Sign in</a>
-          <a href="/sign-up" className="register">
+          <Link href="/login">Sign in</Link>
+          <Link href="/sign-up" className="register">
             Sign up
-          </a>
+          </Link>
         </div>
       </section>
     </nav>

@@ -1,11 +1,12 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import HomePage from './pages/home/HomePage';
 import ListPage from './pages/listPage/ListPage';
-import Layout from './components/layout/Layout';
+import { Layout, RequireAuthLayout } from './components/layout/Layout';
 import Login from './pages/login/Login';
 import SinglePage from './pages/singlePage/SinglePage';
 import ProfilePage from './pages/profilePage/ProfilePage';
 import RegisterPage from './pages/register/RegisterPage';
+import ProfileUpdatePage from './pages/profileUpdatePage/ProfileUpdatePage';
 
 function App() {
   // On crée un router avec l’API moderne de React Router (v6.4+), déclares toutes les routes de ton application dans un tableau.
@@ -35,9 +36,20 @@ function App() {
           path: 'single/:id',
           element: <SinglePage />,
         },
+      ],
+    },
+    // Route protéger, pas accessible sans authentification (via login)
+    {
+      path: '/',
+      element: <RequireAuthLayout />,
+      children: [
         {
-          path: '/profile-page',
+          path: 'profile-page',
           element: <ProfilePage />,
+        },
+        {
+          path: 'profile/update',
+          element: <ProfileUpdatePage />,
         },
       ],
     },

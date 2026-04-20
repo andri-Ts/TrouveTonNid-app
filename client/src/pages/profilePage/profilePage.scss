@@ -37,18 +37,27 @@
           color: #111;
         }
 
-        button {
-          background-color: #2563eb;
-          color: #fff;
-          border: none;
-          padding: 0.45rem 0.9rem;
-          border-radius: 6px;
-          font-size: 0.85rem;
-          cursor: pointer;
-          transition: background 0.2s ease;
+        .buttons {
+          display: flex;
+          gap: 0.5rem; // espace entre Update profil et Logout
 
-          &:hover {
-            background-color: #1d4ed8;
+          button {
+            background-color: #2563eb;
+            color: #fff;
+            border: none;
+            padding: 0.45rem 0.9rem;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: background 0.2s ease;
+
+            &:hover {
+              background-color: #1d4ed8;
+            }
+          }
+
+          button.logout {
+            background-color: #ef4444; // rouge pour logout
           }
         }
       }

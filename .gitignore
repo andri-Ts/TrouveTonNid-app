@@ -1,6 +1,5 @@
-.md
+*.md
 node_modules
-.env
 .vscode
 dist
 buld

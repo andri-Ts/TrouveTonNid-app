@@ -47,20 +47,23 @@ export const login = async (req, res) => {
     if (!isPasswordValid)
       return res.status(401).json({ message: 'Invalid Credentials' });
 
-    /*** GENERATE COOKE TOKEN AND SEND TO TH USER GENRATE ***/
+    /*** GENERATE COOKE TOKEN AND SEND TO TH USER GENERATE ***/
 
     // res.setHeader("Set-Cookie", "test=" + "myValue").json("succes"); // cookie sans le package cookie-parser
-
-    const age = 1000 * 60 * 60 * 24; // durée de validation cookie (ms * 1s * 1h * 24h)
+    const age = 1000 * 60 * 60 * 24; // durée de validation cookie (ms * 1s * 1h * 24h) -> ici 24h
 
     // un token a 3 parties : 1- Header, 2- Payload(id, exp), 3-signature("dgagege...")
     const my_token = jwt.sign(
       {
         id: user.id,
+        isAdmin: false,
       },
       process.env.JWT_SECRET_KEY, // signature
       { expiresIn: age }, // exp
     );
+
+    const userObj = user.toObject(); // (!IMPORTANT) convertir le doc Moongose en objet JS simple <= user contient des encore des trucs internes($_, _doc, ...)
+    const { password: userPassword, ...userInfo } = userObj; // pour isoler le password et ne pas l'envoyer au client
 
     res
       .cookie('token', my_token, {
@@ -70,7 +73,7 @@ export const login = async (req, res) => {
         maxAge: age, // Durée de vie du cookie en millisecondes: iat(moment de la création du token) + durée
       })
       .status(200)
-      .json({ message: 'Login successful' });
+      .json({ ...userInfo, message: 'Login successful' }); // OU JUSTE .json(userInfo)
   } catch (error) {
     res.status(500).json({ message: 'Failed to login' });
   }
@@ -81,6 +84,7 @@ export const login = async (req, res) => {
 export const logout = (req, res) => {
   res
     .clearCookie('token', {
+      // efface le token de l'user
       httpOnly: true,
       // secure: true,
       sameSite: 'strict',
