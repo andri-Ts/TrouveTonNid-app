@@ -7,7 +7,6 @@ function Navbar() {
   const [open, setOpen] = useState(false);
 
   const { currentUser } = useContext(AuthContext);
-  console.log(currentUser);
 
   return (
     <nav>
@@ -36,12 +35,13 @@ function Navbar() {
           </section>
         ) : (
           <>
-            <a href="/login">Sign in</a>
-            <a href="/sign-up" className="register">
+            <Link to="/login">Sign in</Link>
+            <Link href="/register" className="register">
               Sign up
-            </a>
+            </Link>
           </>
         )}
+        {/* menu sur mobile */}
         <div className="menuIcon">
           <img
             src="/menu.png"
@@ -54,10 +54,10 @@ function Navbar() {
           <a href="/about">About</a>
           <a href="/contact">Contact</a>
           <a href="/agents">Agents</a>
-          <a href="/sign-in">Sign in</a>
-          <a href="/sign-up" className="register">
+          <Link href="/login">Sign in</Link>
+          <Link href="/sign-up" className="register">
             Sign up
-          </a>
+          </Link>
         </div>
       </section>
     </nav>
