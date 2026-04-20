@@ -6,6 +6,7 @@ import Login from './pages/login/Login';
 import SinglePage from './pages/singlePage/SinglePage';
 import ProfilePage from './pages/profilePage/ProfilePage';
 import RegisterPage from './pages/register/RegisterPage';
+import ProfileUpdatePage from './pages/profileUpdatePage/ProfileUpdatePage';
 
 function App() {
   // On crée un router avec l’API moderne de React Router (v6.4+), déclares toutes les routes de ton application dans un tableau.
@@ -45,6 +46,10 @@ function App() {
         {
           path: 'profile-page',
           element: <ProfilePage />,
+        },
+        {
+          path: 'profile/update',
+          element: <ProfileUpdatePage />,
         },
       ],
     },

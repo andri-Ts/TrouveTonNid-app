@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import List from '../../components/list/List';
 import './profilePage.scss';
 import Chat from '../../components/chat/Chat';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import apiRequest from '../../lib/apiRequest';
 import { AuthContext } from '../../context/AuthContext';
 
@@ -30,7 +30,9 @@ function ProfilePage() {
             <header>
               <h2>User Information</h2>
               <div className="buttons">
-                <button>Update profil</button>
+                <Link to="/profile/update">
+                  <button>Update profil</button>
+                </Link>
                 <button className="logout" onClick={handleLogout}>
                   Logout
                 </button>
