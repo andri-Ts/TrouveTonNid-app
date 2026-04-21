@@ -32,7 +32,9 @@ export const updateUser = async (req, res) => {
   const { password, avatar, ...restBody } = req.body;
 
   if (id != tokenUserId)
-    return res.status(403).json({ success: false, message: 'Not Authorized' }); // si c'est pas le même id, on throw
+    return res
+      .status(403)
+      .json({ success: false, message: 'False ID! Not Authorized!' }); // si c'est pas le même id, on throw
 
   try {
     const updateData = { ...restBody };
