@@ -3,9 +3,10 @@ import jwt from 'jsonwebtoken';
 export const verifyToken = (req, res, next) => {
   // 1. Check the token (pour pouvoir être authentifier)
   const token = req.cookies.token;
+  console.log(token);
 
   // si pas de tocken, pas d'acces
-  if (!token) return res.status(401).json({ message: 'Not Authenticated!' });
+  if (!token) return res.status(401).json({ message: 'Not Authentificated!' });
 
   // Si possède un token, vérification validité (durée de validité, id)
   jwt.verify(token, process.env.JWT_SECRET_KEY, async (err, payload) => {
