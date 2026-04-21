@@ -3,7 +3,7 @@ import jwt from 'jsonwebtoken';
 export const shbeLoggedIn = (req, res) => {
   // 1.Verification token faite pas le middleware
   // 2. Récupération de l'id (utilise)
-  console.log(req.userId);
+  console.log('userId: ', req.userId);
 
   // Si tout est ok
   res.status(200).json({ message: 'You are authentificated' });

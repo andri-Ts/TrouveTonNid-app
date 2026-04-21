@@ -5,7 +5,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthContext';
 
 function Login() {
-  const [error, setError] = useState('');
+  const [errorMsg, setErrorMsg] = useState('');
   const [isLoading, setIsLoading] = useState(false); // pour activé ou désactivé le bouton Login
   const navigate = useNavigate();
 
@@ -14,7 +14,7 @@ function Login() {
   const handleSubmit = async (event) => {
     event.preventDefault();
     setIsLoading(true);
-    setError(''); // enlève le msg d'erreur au dessous du bouton
+    setErrorMsg(''); // enlève le msg d'erreur au dessous du bouton
 
     const formData = new FormData(event.target);
     const username = formData.get('username-form');
@@ -27,7 +27,7 @@ function Login() {
       updateUser(res.data); // les données sont dans .data
       navigate('/');
     } catch (error) {
-      setError(error.response.data.message);
+      setErrorMsg(error.response.data.message || 'Something went wrong'); // afficher l'error venant du back sur l'écran
     } finally {
       setIsLoading(false);
     }
@@ -51,7 +51,7 @@ function Login() {
             placeholder="Password"
           />
           <button disabled={isLoading}>Login</button>
-          {error && <span>{error}</span>}
+          {errorMsg && <span>{errorMsg}</span>}
           <Link to="/register">{"Don't"} you have an account?</Link>
         </form>
       </div>

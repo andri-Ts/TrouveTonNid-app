@@ -10,8 +10,7 @@ export const register = async (req, res) => {
 
   try {
     // Hasher le mdp
-    const hashPassword = await bcrypt.hash(password, 10);
-    console.log(hashPassword);
+    const hashPassword = await bcrypt.hash(password, 5);
 
     // Create new user and add in the db
     const newUser = await User.create({
@@ -19,7 +18,7 @@ export const register = async (req, res) => {
       email,
       password: hashPassword,
     });
-    console.log(newUser);
+    console.log('new user: ', newUser);
 
     res
       .status(201)
