@@ -29,16 +29,17 @@ export const updateUser = async (req, res) => {
   // Comparer le id cookie et id user
   const id = req.params.id;
   const tokenUserId = req.userId; // changement de "place" via verifyToken (donc pas dans res.cookies)
-  const { password, ...restBody } = req.body;
+  const { password, avatar, ...restBody } = req.body;
 
   if (id != tokenUserId)
-    // si c'est pas le même id, on ne throw
-    return res.status(403).json({ success: false, message: 'Not Authorized' });
+    return res.status(403).json({ success: false, message: 'Not Authorized' }); // si c'est pas le même id, on throw
 
   try {
     const updateData = { ...restBody };
 
     if (password) updateData.password = await bcrypt.hash(password, 5);
+
+    if (avatar) updateData.avatar = avatar;
 
     const updateUser = await User.findByIdAndUpdate(
       id,
@@ -55,10 +56,31 @@ export const updateUser = async (req, res) => {
 
 // ----------------------------------------------------------------------------
 
-export const deletUser = (req, res) => {
+export const deletUser = async (req, res) => {
+  // Comparer le id cookie et id user
+  const id = req.params.id;
+  const tokenUserId = req.userId; // changement de "place" via verifyToken (donc pas dans res.cookies)
+
+  if (id != tokenUserId) {
+    return res.status(403).json({
+      success: false,
+      message: 'Not Authorized',
+    }); // si c'est pas le même id, on throw
+  }
+
   try {
+    const deleteUser = await User.findByIdAndDelete(id);
+    if (!deletUser) {
+      return res
+        .status(404)
+        .json({ success: false, message: 'User not found' });
+    }
+
+    res
+      .status(200)
+      .json({ success: true, message: 'User delete successfully' });
   } catch (error) {
     console.log(error);
-    res.status(500).json({ message: 'Failed to delete users' });
+    res.status(500).json({ message: 'Failed to delete user' });
   }
 };
