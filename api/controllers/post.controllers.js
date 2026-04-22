@@ -2,7 +2,9 @@ import Post from '../models/post.model.js';
 
 export const getPosts = async (req, res) => {
   try {
-    const posts = await Post.find().limit(10); // récup tous les posts (10 posts max), peut ajouter sort() pour mettre les récents en premier
+    const posts = await Post.find()
+      .select('-postDetail') // enlève l'objet postDetail de post
+      .limit(10); // récup tous les posts (10 posts max), peut ajouter sort() pour mettre les récents en premier
     res.status(200).json({ success: true, data: posts });
   } catch (error) {
     console.error(error);
@@ -16,7 +18,13 @@ export const getPost = async (req, res) => {
   const idPost = req.params.id;
 
   try {
-    const post = await Post.findById(idPost);
+    const post = await Post.findById(idPost)
+      .select('postDetail user') // selectionne seulement les champs 'user' et 'postDetail'
+      .populate({
+        path: 'user', // transforme user (ObjectId) en objet User complet
+        select: 'username avatar', // on ne récupère que ces champs du user
+      });
+
     res.status(200).json({ success: true, data: post });
   } catch (error) {
     console.error(error);
