@@ -2,30 +2,22 @@ import mongoose from 'mongoose';
 
 const postSchema = new mongoose.Schema(
   {
-    title: {
-      type: String,
-    },
+    title: String,
     price: {
       type: Number,
       required: [true, 'Price is required'],
     },
-    photo: {
-      type: String,
-      default: null,
+    photos: {
+      type: [String], // tab d'images
+      default: [],
     },
-    address: {
-      type: String,
-    },
+    address: String,
     city: {
       type: String,
       required: [true, 'City is required'],
     },
-    bedroom: {
-      type: Number,
-    },
-    bathroom: {
-      type: Number,
-    },
+    bedroom: Number,
+    bathroom: Number,
     latitude: {
       type: String,
     },
@@ -34,7 +26,7 @@ const postSchema = new mongoose.Schema(
     },
     transaction: {
       type: String,
-      enum: ['byu', 'rent'],
+      enum: ['buy', 'rent'],
       required: [true, 'Transaciton type required'],
     },
     property: {
@@ -47,6 +39,17 @@ const postSchema = new mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       ref: 'User',
       required: [true, 'User required'],
+    },
+    // 🔥 AJOUT ICI de oistDetail
+    postDetail: {
+      desc: String,
+      utilities: String,
+      pet: String,
+      income: String,
+      size: Number,
+      school: Number,
+      bus: Number,
+      restaurant: Number,
     },
   },
   {
