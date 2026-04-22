@@ -28,7 +28,7 @@ export const getUser = async (req, res) => {
 export const updateUser = async (req, res) => {
   // Comparer le id cookie et id user
   const id = req.params.id;
-  const tokenUserId = req.userId; // changement de "place" via verifyToken (donc pas dans res.cookies)
+  const tokenUserId = req.user.id; // changement de "place" via verifyToken (donc pas dans res.cookies)
   const { password, avatar, ...restBody } = req.body;
 
   if (id != tokenUserId)
@@ -61,7 +61,7 @@ export const updateUser = async (req, res) => {
 export const deletUser = async (req, res) => {
   // Comparer le id cookie et id user
   const id = req.params.id;
-  const tokenUserId = req.userId; // changement de "place" via verifyToken (donc pas dans res.cookies)
+  const tokenUserId = req.user.id; // changement de "place" via verifyToken (donc pas dans res.cookies)
 
   if (id != tokenUserId) {
     return res.status(403).json({
@@ -80,7 +80,7 @@ export const deletUser = async (req, res) => {
 
     res
       .status(200)
-      .json({ success: true, message: 'User delete successfully' });
+      .json({ success: true, message: 'User deleted successfully' });
   } catch (error) {
     console.log(error);
     res.status(500).json({ message: 'Failed to delete user' });

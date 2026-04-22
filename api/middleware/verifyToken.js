@@ -3,7 +3,8 @@ import jwt from 'jsonwebtoken';
 export const verifyToken = (req, res, next) => {
   // 1. Check the token (pour pouvoir être authentifier)
   const token = req.cookies.token;
-  console.log('token:', token);
+  // const reqData = req;
+  // console.log('req:', reqData);
 
   // si pas de tocken, pas d'acces
   if (!token) return res.status(401).json({ message: 'Not Authentificated!' });
@@ -14,8 +15,8 @@ export const verifyToken = (req, res, next) => {
     if (err) return res.status(403).json({ message: 'Token is not Valid' });
 
     //si tout est ok
-    req.userId = payload.id; // on met dans req l'id de l'user, utile pour la suite
-
+    req.user = payload; // on met dans req l'user(id, email..), utile pour la suite(auth)
+    // console.log('req user: ', req.user);
     next();
   });
 };
