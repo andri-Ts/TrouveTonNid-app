@@ -8,7 +8,11 @@ function Map({ places }) {
   return (
     <MapContainer
       className="map"
-      center={[52.4797, -1.90269]}
+      center={
+        places.length === 1 // si le tab des coordonnées ne contiennent qu'un lieu (c-a-d singlePage)
+          ? [places[0].latitude, places[0].longitude]
+          : [52.4797, -1.90269] // sinon on met tout le pays en visible
+      }
       zoom={7}
       scrollWheelZoom={false}
     >

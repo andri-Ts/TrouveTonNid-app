@@ -8,6 +8,7 @@ import { useLoaderData } from 'react-router-dom';
 function SinglePage() {
   const dataPost = useLoaderData(); // charger les data du backend (de react router dom)
   const user = dataPost.user;
+  const postDetail = dataPost.postDetail;
   // console.log('dataPost', dataPost);
 
   return (
@@ -41,22 +42,30 @@ function SinglePage() {
             <div className="item">
               <img src="/utility.png" alt="utility" />
               <div className="info">
-                <h5>Utility</h5>
-                <p>Renter is possible</p>
+                <h5>Utilities</h5>
+                {postDetail.utilities === 'owner' ? (
+                  <p>Owner is responsible</p>
+                ) : (
+                  <p>Tenant i responsible</p>
+                )}
               </div>
             </div>
             <div className="item">
               <img src="/pet.png" alt="pet" />
               <div className="info">
                 <h5>Pet Policy</h5>
-                <p>Pet Allowed</p>
+                {postDetail.pet === 'allowed' ? (
+                  <p>Pets Allowed</p>
+                ) : (
+                  <p>Pets not Allowed</p>
+                )}
               </div>
             </div>
             <div className="item">
               <img src="/fee.png" alt="fee" />
               <div className="info">
-                <h5>Property Fees</h5>
-                <p>Must have 3x the rent in total household income</p>
+                <h5>Income Policy</h5>
+                <p>{postDetail.income}</p>
               </div>
             </div>
           </div>
@@ -64,15 +73,15 @@ function SinglePage() {
           <div className="sizes">
             <div className="item">
               <img src="/size.png" alt="size" />
-              <span>80sqm (861sqfl)</span>
+              <span>{postDetail.size} sqft</span>
             </div>
             <div className="item">
               <img src="/bed.png" alt="bed" />
-              <span>2 bedroom</span>
+              <span>{postDetail.bedroom} sqft</span>
             </div>
             <div className="item">
               <img src="/bath.png" alt="bath" />
-              <span>1 bathroom</span>
+              <span>{postDetail.bathroom} sqft</span>
             </div>
           </div>
           <h4 className="general">Nearby Places</h4>
@@ -81,28 +90,33 @@ function SinglePage() {
               <img src="/school.png" alt="school" />
               <div className="info">
                 <h5>School</h5>
-                <p>250m away</p>
+                <p>
+                  {postDetail.school > 999
+                    ? postDetail.school / 1000 + 'km'
+                    : postDetail.school + 'm'}{' '}
+                  away
+                </p>
               </div>
             </div>
             <div className="item">
               <img src="/bed.png" alt="bed" />
               <div className="info">
                 <h5>Bus Stop</h5>
-                <p>100m away</p>
+                <p>{postDetail.bus}m away</p>
               </div>
             </div>
             <div className="item">
               <img src="/bath.png" alt="bath" />
               <div className="info">
                 <h5>Restaurant</h5>
-                <p>200m away</p>
+                <p>{postDetail.restaurant}m away</p>
               </div>
             </div>
           </div>
           <h4 className="general">Location</h4>
           <div className="mapContainer">
             {/* [] permet à map de recevoir un tab de singlePostData */}
-            <Map places={[singlePostData]} />
+            <Map places={[dataPost]} />
           </div>
           <footer className="buttons">
             <button>
