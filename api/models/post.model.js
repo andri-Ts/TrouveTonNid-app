@@ -8,8 +8,8 @@ const postSchema = new mongoose.Schema(
       required: [true, 'Price is required'],
     },
     photos: {
-      type: [String], // tab d'images
-      default: [],
+      type: String, // [String] tab d'images normalement
+      default: '',
     },
     address: String,
     city: {

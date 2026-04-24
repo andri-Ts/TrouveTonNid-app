@@ -1,10 +1,50 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './newPostPage.scss';
+import apiRequest from '../../lib/apiRequest';
+import { useNavigate } from 'react-router-dom';
 
 function NewPostPage() {
-  const handleSubmit = (e) => {
+  const [errorMsg, setErrorMsg] = useState('');
+  const navigate = useNavigate();
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log('submit');
+    const formData = new FormData(e.target);
+    const inputs = Object.fromEntries(formData); // permet de récupérer tous les entrées du formulaire
+
+    // Envoyer les data au backend
+    try {
+      const newPostRes = await apiRequest.post('/posts', {
+        title: inputs.title,
+        price: parseInt(inputs.price),
+        photos: inputs.photos,
+        address: inputs.address,
+        city: inputs.city,
+        bedroom: parseInt(inputs.bedroom),
+        bathroom: parseInt(inputs.bathroom),
+        latitude: inputs.latitude,
+        longitude: inputs.longitude,
+        transaction: inputs.transaction,
+        property: inputs.property,
+        postDetail: {
+          desc: inputs.desc,
+          utilities: inputs.utilities,
+          pet: inputs.pet,
+          income: inputs.income,
+          size: parseInt(inputs.size),
+          school: parseInt(inputs.school),
+          bus: parseInt(inputs.bus),
+          restaurant: parseInt(inputs.restaurant),
+        },
+      });
+
+      // console.log('post: ', newPostRes);
+      navigate('/single/' + newPostRes.data._id);
+      // navigate('/');
+    } catch (error) {
+      console.error(error);
+      setErrorMsg(error.response?.data?.message || 'Something went wrong');
+    }
   };
 
   return (
@@ -27,6 +67,11 @@ function NewPostPage() {
             </div>
             <div className="item description">
               <label htmlFor="desc">Description</label>
+              <textarea
+                name="desc"
+                placeholder="Ecrivez votre descirption..."
+                rows={5}
+              />
             </div>
             <div className="item">
               <label htmlFor="city">City</label>
@@ -49,8 +94,8 @@ function NewPostPage() {
               <input id="longitude" name="longitude" type="text" />
             </div>
             <div className="item">
-              <label htmlFor="type">Type</label>
-              <select name="type">
+              <label htmlFor="type">Transaction Type</label>
+              <select name="transaction">
                 <option value="rent" defaultChecked>
                   Rent
                 </option>
@@ -107,11 +152,23 @@ function NewPostPage() {
               <label htmlFor="restaurant">Restaurant</label>
               <input min={0} id="restaurant" name="restaurant" type="number" />
             </div>
-            <button className="sendButton">Add</button>
-            {/* {error && <span>error</span>} */}
+            <div className="item">
+              <label>Photos</label>
+              <input
+                type="text"
+                id="photos-id"
+                name="photos"
+                placeholder="https//..."
+              />
+            </div>
+            <div className="item">
+              <button className="sendButton">Add</button>
+            </div>
+            {errorMsg && <span>{errorMsg}</span>}
           </form>
         </div>
       </div>
+      <div className="sideContainer"></div>
     </section>
   );
 }
