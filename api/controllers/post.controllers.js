@@ -1,10 +1,25 @@
 import Post from '../models/post.model.js';
 
 export const getPosts = async (req, res) => {
+  const query = req.query; // contient les requêtes avec les filtres
+  // console.log('query:', query);
+
   try {
-    const posts = await Post.find()
+    const filter = {}; // objet filtre à utiliser pour filtrer dans mongoose
+
+    if (query.city) filter.city = query.city;
+    if (query.transaction) filter.transaction = query.transaction;
+    if (query.bedroom) filter.bedroom = parseInt(query.bedroom);
+    if (query.minPrice || query.maxPrice) {
+      filter.price = {};
+      if (query.minPrice) filter.price.$gte = parseInt(query.minPrice); // price >= minPrice
+      if (query.maxPrice) filter.price.$lte = parseInt(query.maxPrice);
+    }
+
+    const posts = await Post.find(filter)
       .select('-postDetail') // enlève l'objet postDetail de post
       .limit(10); // récup tous les posts (10 posts max), peut ajouter sort() pour mettre les récents en premier
+    console.log(posts);
     res.status(200).json({ success: true, data: posts });
   } catch (error) {
     console.error(error);

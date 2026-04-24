@@ -8,7 +8,7 @@ import ProfilePage from './pages/profilePage/ProfilePage';
 import RegisterPage from './pages/register/RegisterPage';
 import ProfileUpdatePage from './pages/profileUpdatePage/ProfileUpdatePage';
 import NewPostPage from './pages/newPostPage/NewPostPage';
-import { singlePageLoader } from './lib/singlePageLoader';
+import { listPageLoader, singlePageLoader } from './lib/loader';
 
 function App() {
   // On crée un router avec l’API moderne de React Router (v6.4+), déclares toutes les routes de ton application dans un tableau.
@@ -29,6 +29,7 @@ function App() {
         {
           path: 'list', // devient "/list"
           element: <ListPage />,
+          loader: listPageLoader,
         },
         {
           path: 'login',
