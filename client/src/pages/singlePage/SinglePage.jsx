@@ -3,29 +3,34 @@ import './singlePage.scss';
 import Slider from '../../components/slider/Slider';
 import { singlePostData, userData } from '../../lib/dummydata';
 import Map from '../../components/map/Map';
+import { useLoaderData } from 'react-router-dom';
 
 function SinglePage() {
+  const dataPost = useLoaderData(); // charger les data du backend (de react router dom)
+  const user = dataPost.user;
+  // console.log('dataPost', dataPost);
+
   return (
     <main className="singlePage">
       <section className="details">
         <div className="wrapper">
-          <Slider images={singlePostData.images} />
+          <Slider images={dataPost.photos} />
           <article className="infos">
             <header>
               <div className="postInfo">
-                <h1>{singlePostData.title}</h1>
+                <h1>{dataPost.title}</h1>
                 <p className="address">
                   <img src="/pin.png" alt="pin" />
-                  <span>{singlePostData.address}</span>
+                  <span>{dataPost.address}</span>
                 </p>
-                <p className="price">$ {singlePostData.price}</p>
+                <p className="price">$ {dataPost.price}</p>
               </div>
               <div className="userInfo">
-                <img src={userData.img} alt="pdp" />
-                <p>{userData.name}</p>
+                <img src={user.avatar} alt="pdp" />
+                <p>{user.username}</p>
               </div>
             </header>
-            <p className="desc">{singlePostData.description}</p>
+            <p className="desc">{dataPost.postDetail.desc}</p>
           </article>
         </div>
       </section>

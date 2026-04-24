@@ -5,7 +5,18 @@ import { useNavigate } from 'react-router-dom';
 
 function NewPostPage() {
   const [errorMsg, setErrorMsg] = useState('');
+  const [photos, setPhotos] = useState(['']); // pour stocker tab de lien de photos
   const navigate = useNavigate();
+
+  const handlePhotoChange = (index, value) => {
+    const updated = [...photos];
+    updated[index] = value;
+    setPhotos(updated);
+  };
+
+  const addPhotoField = () => {
+    setPhotos([...photos, '']);
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -17,7 +28,7 @@ function NewPostPage() {
       const newPostRes = await apiRequest.post('/posts', {
         title: inputs.title,
         price: parseInt(inputs.price),
-        photos: inputs.photos,
+        photos: photos, // photos de useState
         address: inputs.address,
         city: inputs.city,
         bedroom: parseInt(inputs.bedroom),
@@ -38,8 +49,13 @@ function NewPostPage() {
         },
       });
 
+      const id = newPostRes?.data?.data?._id; // banckend renvoie data.data
+      if (!id) {
+        console.error('ID manquant :', newPostRes.data);
+        setErrorMsg('Post ID not found');
+      }
       // console.log('post: ', newPostRes);
-      navigate('/single/' + newPostRes.data._id);
+      navigate('/single/' + id);
       // navigate('/');
     } catch (error) {
       console.error(error);
@@ -154,12 +170,20 @@ function NewPostPage() {
             </div>
             <div className="item">
               <label>Photos</label>
-              <input
-                type="text"
-                id="photos-id"
-                name="photos"
-                placeholder="https//..."
-              />
+              {photos.map((photo, index) => (
+                <input
+                  key={index}
+                  type="text"
+                  placeholder="https://..."
+                  value={photo}
+                  // Chaque input représente une image.
+                  // On met à jour uniquement la valeur de l'image à son index dans le tableau.
+                  onChange={(e) => handlePhotoChange(index, e.target.value)}
+                />
+              ))}
+              <button type="button" onClick={addPhotoField}>
+                Add photo
+              </button>
             </div>
             <div className="item">
               <button className="sendButton">Add</button>

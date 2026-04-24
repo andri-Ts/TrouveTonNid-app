@@ -18,12 +18,10 @@ export const getPost = async (req, res) => {
   const idPost = req.params.id;
 
   try {
-    const post = await Post.findById(idPost)
-      .select('postDetail user') // selectionne seulement les champs 'user' et 'postDetail'
-      .populate({
-        path: 'user', // transforme user (ObjectId) en objet User complet
-        select: 'username avatar', // on ne récupère que ces champs du user
-      });
+    const post = await Post.findById(idPost).populate({
+      path: 'user', // transforme user (ObjectId) en objet User complet
+      select: 'username avatar', // on ne récupère que ces champs du user
+    });
 
     res.status(200).json({ success: true, data: post });
   } catch (error) {
