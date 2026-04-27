@@ -30,7 +30,7 @@ function ProfilePage() {
             <header>
               <h2>User Information</h2>
               <div className="buttons">
-                <Link to="/profile/update">
+                <Link to="/profile-page/update">
                   <button>Update profil</button>
                 </Link>
                 <button className="logout" onClick={handleLogout}>
@@ -53,10 +53,12 @@ function ProfilePage() {
               </div>
             </div>
           </article>
-          <article className="my-list">
+          <article>
             <header>
               <h2>My List</h2>
-              <button>Add New Post</button>
+              <Link to="/add">
+                <button>Add New Post</button>
+              </Link>
             </header>
             <List />
           </article>

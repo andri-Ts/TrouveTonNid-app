@@ -7,6 +7,8 @@ import SinglePage from './pages/singlePage/SinglePage';
 import ProfilePage from './pages/profilePage/ProfilePage';
 import RegisterPage from './pages/register/RegisterPage';
 import ProfileUpdatePage from './pages/profileUpdatePage/ProfileUpdatePage';
+import NewPostPage from './pages/newPostPage/NewPostPage';
+import { listPageLoader, singlePageLoader } from './lib/loader';
 
 function App() {
   // On crée un router avec l’API moderne de React Router (v6.4+), déclares toutes les routes de ton application dans un tableau.
@@ -27,6 +29,7 @@ function App() {
         {
           path: 'list', // devient "/list"
           element: <ListPage />,
+          loader: listPageLoader,
         },
         {
           path: 'login',
@@ -35,6 +38,7 @@ function App() {
         {
           path: 'single/:id',
           element: <SinglePage />,
+          loader: singlePageLoader, // fonciton pour charger les data du back vers la page SinglePage
         },
       ],
     },
@@ -48,8 +52,12 @@ function App() {
           element: <ProfilePage />,
         },
         {
-          path: 'profile/update',
+          path: 'profile-page/update',
           element: <ProfileUpdatePage />,
+        },
+        {
+          path: 'add',
+          element: <NewPostPage />,
         },
       ],
     },

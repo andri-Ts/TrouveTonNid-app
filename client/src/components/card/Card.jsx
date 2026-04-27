@@ -6,7 +6,7 @@ function Card({ item }) {
   return (
     <section className="card">
       <Link to={`/${item.id}`} className="imageContainer">
-        <img src={item.img} alt="Image" />
+        <img src={item.photos[0]} alt="Image" />
       </Link>
       <div className="textContainer">
         <h2 className="title">

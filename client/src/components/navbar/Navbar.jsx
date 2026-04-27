@@ -11,10 +11,10 @@ function Navbar() {
   return (
     <nav>
       <section className="left">
-        <a href="/" className="logo">
-          <img src="./logo.png" alt="LOGO" />
+        <Link to="/" className="logo">
+          <img src="/logo.png" alt="LOGO" />
           <span>Trouve Ton Nid</span>
-        </a>
+        </Link>
         <a href="/">Home</a>
         <a href="/about">About</a>
         <a href="/contact">Contact</a>
