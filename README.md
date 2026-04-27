@@ -53,4 +53,4 @@ JWT_SECRET_KEY=your_secret
 
 ## 👨‍💻 Auteur
 
-Andri Ts
+Andri Ts (Projet personnel à but éducatif)
