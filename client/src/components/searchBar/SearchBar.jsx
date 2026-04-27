@@ -1,21 +1,38 @@
 import React, { useState } from 'react';
 import './searchBar.scss';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
-const transactions = ['Buy', 'rent'];
+const transactions = ['buy', 'rent'];
 
 function SearchBar() {
   const [query, setQuery] = useState({
-    transaction: 'BUY',
+    transaction: '',
     city: '',
     minPrice: 0,
     maxPrice: 0,
   });
+  const navigate = useNavigate();
 
   // Permet de changer le type d'opération (achat / location).
   // On met à jour l'objet en préservant les autres champs
   const switchType = (value) => {
     setQuery((prevValue) => ({ ...prevValue, transaction: value }));
+  };
+
+  // Pour ne pas envoyer de paramètres inutiles
+  const buildQuery = () => {
+    const params = new URLSearchParams(); // sert à construire unu URL proprement
+
+    // On ajoute chaqeu champ uniquement si elle est valide
+    if (query.transaction) params.append('transaction', query.transaction); // ajoute dans l'URL: transaction=valeur (contenu dans query.transaciton)
+    if (query.city && query.city.trim() !== '')
+      params.append('city', query.city.trim());
+    if (query.minPrice && Number(query.minPrice) > 0)
+      params.append('minPrice', query.minPrice);
+    if (query.maxPrice && Number(query.maxPrice) > 0)
+      params.append('maxPrice', query.maxPrice);
+
+    return params.toString(); // ex: 'city=Paris&minPrice=100
   };
 
   // Fonc appelée à chaque fois qu'on tape dans un input
@@ -29,7 +46,10 @@ function SearchBar() {
   };
 
   const handleSubmit = (e) => {
-    e.preventDefault();
+    e.preventDefault(); // empêche le reload
+
+    const queryString = buildQuery();
+    navigate(`/list?${queryString}`); // redirection vers les bons paramètres
   };
 
   return (
@@ -46,7 +66,7 @@ function SearchBar() {
           </button>
         ))}
       </div>
-      <form>
+      <form onSubmit={handleSubmit}>
         <input
           type="text"
           name="city"
@@ -72,13 +92,13 @@ function SearchBar() {
           value={query.maxPrice}
           onChange={handleChange}
         />
-        <Link
+        {/* <Link
           to={`/list/?transaction=${query.transaction}&city=${query.city}&minPrice=${query.minPrice}&maxPrice=${query.maxPrice}`}
-        >
-          <button>
-            <img src="./search.png" alt="Search" />
-          </button>
-        </Link>
+        > */}
+        <button type="submit">
+          <img src="./search.png" alt="Search" />
+        </button>
+        {/* </Link> */}
       </form>
     </section>
   );

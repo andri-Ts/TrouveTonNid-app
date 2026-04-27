@@ -7,8 +7,9 @@ export const getPosts = async (req, res) => {
   try {
     const filter = {}; // objet filtre à utiliser pour filtrer dans mongoose
 
-    if (query.city) filter.city = query.city;
-    if (query.transaction) filter.transaction = query.transaction;
+    if (query.city && query.city.trim() !== '') filter.city = query.city; // .trim() : supprime les espaces vides début et fin => si query n'est pas vide
+    if (query.transaction && query.transaction !== '')
+      filter.transaction = query.transaction;
     if (query.bedroom) filter.bedroom = parseInt(query.bedroom);
     if (query.minPrice || query.maxPrice) {
       filter.price = {};
@@ -19,7 +20,7 @@ export const getPosts = async (req, res) => {
     const posts = await Post.find(filter)
       .select('-postDetail') // enlève l'objet postDetail de post
       .limit(10); // récup tous les posts (10 posts max), peut ajouter sort() pour mettre les récents en premier
-    console.log(posts);
+    // console.log(posts);
     res.status(200).json({ success: true, data: posts });
   } catch (error) {
     console.error(error);
