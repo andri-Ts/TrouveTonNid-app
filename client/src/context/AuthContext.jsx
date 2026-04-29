@@ -5,19 +5,36 @@ export const AuthContext = createContext(); // création de context (qu'on va ex
 // Provider du context (source des données)
 export default function AuthContextProvider({ children }) {
   // → récupère la valeur stockée sous la clé "user" (string ou null)
-  const [currentUser, setCurrentUser] = useState(
-    JSON.parse(localStorage.getItem('user')) || null, // JSON.parse transforme la string en objet JavaScript
-  );
+  // const [currentUser, setCurrentUser] = useState(
+  //   JSON.parse(localStorage.getItem('user')) || null, // JSON.parse transforme la string en objet JavaScript
+  // );
+  const [currentUser, setCurrentUser] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  // met à jour le currentUser et son provider à chaque fois que currentUser change
+  // useEffect(() => {
+  //   localStorage.setItem('user', JSON.stringify(currentUser));
+  // }, [currentUser]);
+
+  useEffect(() => {
+    const checkAuth = async () => {
+      try {
+        const res = await apiRequest.get('/auth/me');
+        setCurrentUser(res.data);
+      } catch {
+        setCurrentUser(null);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    checkAuth();
+  }, []);
 
   // à appler dans les composants
   const updateUser = (data) => {
     setCurrentUser(data);
   };
-
-  // met à jour le currentUser et son provider à chaque fois que currentUser change
-  useEffect(() => {
-    localStorage.setItem('user', JSON.stringify(currentUser));
-  }, [currentUser]);
 
   return (
     // Provider = composant qui va "donner" les données à toute l'app
