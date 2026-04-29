@@ -15,10 +15,10 @@ function Navbar() {
           <img src="/logo.png" alt="LOGO" />
           <span>Trouve Ton Nid</span>
         </Link>
-        <a href="/">Home</a>
-        <a href="/about">About</a>
-        <a href="/contact">Contact</a>
-        <a href="/agents">Agents</a>
+        <Link to="/">Home</Link>
+        <Link to="/about">About</Link>
+        <Link to="/contact">Contact</Link>
+        <Link to="/">Agents</Link>
       </section>
       <section className="right">
         {currentUser ? (

@@ -8,7 +8,7 @@ import { useLoaderData } from 'react-router-dom';
 
 function ListPage() {
   const postList = useLoaderData(); // fait appel au loader qu'on a créer et qu'on a mis dans Route(app.jsx)
-  console.log('postList: ', postList);
+  // console.log('postList: ', postList);
 
   return (
     <section className="listPage">

@@ -9,6 +9,8 @@ import RegisterPage from './pages/register/RegisterPage';
 import ProfileUpdatePage from './pages/profileUpdatePage/ProfileUpdatePage';
 import NewPostPage from './pages/newPostPage/NewPostPage';
 import { listPageLoader, singlePageLoader } from './lib/loader';
+import AboutPage from './pages/about/AboutPage';
+import ContactPage from './pages/contactPage/ContactPage';
 
 function App() {
   // On crée un router avec l’API moderne de React Router (v6.4+), déclares toutes les routes de ton application dans un tableau.
@@ -39,6 +41,14 @@ function App() {
           path: 'single/:id',
           element: <SinglePage />,
           loader: singlePageLoader, // fonciton pour charger les data du back vers la page SinglePage
+        },
+        {
+          path: 'about',
+          element: <AboutPage />,
+        },
+        {
+          path: 'contact',
+          element: <ContactPage />,
         },
       ],
     },
