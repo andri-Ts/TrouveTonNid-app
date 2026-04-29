@@ -41,15 +41,15 @@ function ProfilePage() {
             <div className="infos">
               <div className="info">
                 <p>Avatar: </p>
-                <img src={currentUser.avatar || '/no-avatar.jpg'} alt="pdp" />
+                {/* <img src={currentUser.avatar || '/no-avatar.jpg'} alt="pdp" /> */}
               </div>
               <div className="info">
                 <p>Username: </p>
-                <p>{currentUser.username}</p>
+                {/* <p>{currentUser.username}</p> */}
               </div>
               <div className="info">
                 <p>Email: </p>
-                <p>{currentUser.email}</p>
+                {/* <p>{currentUser.email}</p> */}
               </div>
             </div>
           </article>
