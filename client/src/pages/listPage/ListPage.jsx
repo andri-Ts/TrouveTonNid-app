@@ -16,7 +16,7 @@ function ListPage() {
         <div className="wrapper">
           <Filter />
           {postList.map((item) => (
-            <Card key={item.id} item={item} />
+            <Card key={item._id} item={item} />
           ))}
         </div>
       </div>

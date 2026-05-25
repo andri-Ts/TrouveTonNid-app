@@ -4,13 +4,13 @@ import './map.scss';
 import 'leaflet/dist/leaflet.css';
 import Pin from '../pin/Pin';
 
-function Map({ places }) {
+function Map({ places = [] }) {
   return (
     <MapContainer
       className="map"
       center={
         places.length === 1 // si le tab des coordonnées ne contiennent qu'un lieu (c-a-d singlePage)
-          ? [places[0].latitude, places[0].longitude]
+          ? [Number(places[0].latitude), Number(places[0].longitude)]
           : [52.4797, -1.90269] // sinon on met tout le pays en visible
       }
       zoom={7}
@@ -21,7 +21,7 @@ function Map({ places }) {
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
       {places.map((place) => (
-        <Pin key={place.id} item={place} />
+        <Pin key={place._id} item={place} />
       ))}
     </MapContainer>
   );
