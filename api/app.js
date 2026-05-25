@@ -20,6 +20,10 @@ app.use(
 app.use(express.json()); // permet à l'app de communiquer en json
 app.use(cookieParser()); // lire (parser) les cookies entrant facilement
 
+app.get('/', (req, res) => {
+  res.send('TrouveTonNid API is running');
+});
+
 app.use('/api/auth', authRouter); // Pour auth et login
 app.use('/api/test', testRouter); // Api test
 app.use('/api/users', userRouter);
