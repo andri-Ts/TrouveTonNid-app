@@ -25,7 +25,6 @@ app.get('/', (req, res) => {
 });
 
 app.use('/api/auth', authRouter); // Pour auth et login
-app.use('/api/test', testRouter); // Api test
 app.use('/api/users', userRouter);
 app.use('/api/posts', postRouter);
 
