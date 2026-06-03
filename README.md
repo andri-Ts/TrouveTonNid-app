@@ -54,3 +54,8 @@ JWT_SECRET_KEY=your_secret
 ## 👨‍💻 Auteur
 
 Andri Ts (Projet personnel à but éducatif)
+
+
+# LIENS
+app: https://trouve-ton-nid.vercel.app
+api : https://trouvetonnid-app.onrender.com
